@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>grade</title>
+</head>
+<body>
+    <h1>grade</h1>
+    <p th:text="${score}"></p>
+    <p th:if="${score > 90}">1등급</p>
+    <p th:if="${score > 80 && score <= 90}">2등급</p>
+    <p th:if="${score <= 80}">탈락</p>
+</body>
+</html>

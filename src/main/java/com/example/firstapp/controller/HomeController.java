@@ -3,6 +3,7 @@ package com.example.firstapp.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -76,5 +77,28 @@ public class HomeController {
         model.addAttribute("lucky", lucky);
         return "lotto";
     }
+
+    @GetMapping("/profile/{username}")
+    public String profile(@PathVariable String username, Model model) {
+        model.addAttribute("username", username);
+        return "profile";
+    }
+
+    @GetMapping("/cube/{number}")
+    public String cube(@PathVariable int number, Model model) {
+        int result = number * number * number;
+
+        model.addAttribute("number", number);
+        model.addAttribute("result", result);
+
+        return "cube";
+    }
+
+    // 짝수 홀수 판별
+    // /number/{num} => 짝수인지 홀수인지 판별해서 화면에 출력
+
+    // 나이계산 (Year클래스)
+    // /age/{birthYear} => 현재 나이를 계산해서 출력
+    // /age/1990 => 36살입니다.
 
 }

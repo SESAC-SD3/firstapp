@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import java.time.Year;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -96,9 +98,51 @@ public class HomeController {
 
     // 짝수 홀수 판별
     // /number/{num} => 짝수인지 홀수인지 판별해서 화면에 출력
+    @GetMapping("/number/{num}")
+    public String number(@PathVariable int num, Model model) {
+        // controller에서 판단
+//        String result = null;
+//        if (num % 2 == 0) {
+//            result = "짝수";
+//        } else {
+//            result = "홀수";
+//        }
+//        model.addAttribute("num", num);
+//        model.addAttribute("result", result);
+
+        // view에서 판단
+        model.addAttribute("num", num);
+        return "number";
+    }
 
     // 나이계산 (Year클래스)
     // /age/{birthYear} => 현재 나이를 계산해서 출력
     // /age/1990 => 36살입니다.
+
+    @GetMapping("/age/{birthYear}")
+    public String age(@PathVariable int birthYear, Model model) {
+        int currentYear = Year.now().getValue();
+        int age = currentYear - birthYear;
+
+        model.addAttribute("age", age);
+        return "age";
+    }
+
+    @GetMapping("/ping")
+    public String ping(Model model) {
+        return "ping";
+    }
+
+    @GetMapping("/pong")
+    public String pong(
+            @RequestParam String title,
+            @RequestParam String content,
+            Model model) {
+
+        model.addAttribute("title", title);
+        model.addAttribute("content", content);
+        return "pong";
+    }
+
 
 }

@@ -4,8 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Controller
 public class HomeController {
@@ -49,6 +50,31 @@ public class HomeController {
         int score = 100;
         model.addAttribute("score", score);
         return "grade";
+    }
+
+    @GetMapping("/lunch")
+    public String lunch(Model model) {
+        List<String> menus = Arrays.asList("김밥", "라면", "돈까스");
+
+        Random random = new Random();
+        String pick = menus.get(random.nextInt(menus.size()));
+
+        model.addAttribute("pick", pick);
+        return "lunch";
+    }
+
+    @GetMapping("/lotto")
+    public String lotto(Model model) {
+        List<Integer> numbers = IntStream.range(1, 46)
+                .boxed()
+                .collect(Collectors.toList());
+
+        Collections.shuffle(numbers);
+
+        List<Integer> lucky = numbers.subList(0, 6);
+
+        model.addAttribute("lucky", lucky);
+        return "lotto";
     }
 
 }
